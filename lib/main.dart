@@ -26,14 +26,14 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.purple,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
-                headline6: TextStyle(
+                headline6: const TextStyle(
                     fontFamily: "OpenSans",
                     fontWeight: FontWeight.bold,
                     fontSize: 20),
               ),
         ),
         textTheme: ThemeData.light().textTheme.copyWith(
-              headline6: TextStyle(
+              headline6: const TextStyle(
                   fontFamily: "QuickSand", fontWeight: FontWeight.bold),
             ),
       ),
@@ -98,7 +98,7 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
     final PreferredSizeWidget appBar = Platform.isIOS
         ? CupertinoNavigationBar(
-            middle: Text(
+            middle: const Text(
               "Expense Tracker",
             ),
             trailing: Row(
@@ -112,7 +112,7 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
             ),
           )
         : AppBar(
-            title: Text(
+            title: const Text(
               "Expense Tracker",
             ),
             actions: <Widget>[

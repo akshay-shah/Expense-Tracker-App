@@ -113,7 +113,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 ),
                 RaisedButton(
                   color: Theme.of(context).primaryColor,
-                  child: Text(
+                  child: const Text(
                     "Add Transaction",
                     style: TextStyle(color: Colors.white),
                   ),
