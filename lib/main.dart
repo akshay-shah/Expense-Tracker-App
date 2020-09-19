@@ -10,6 +10,7 @@ import 'widgets/transaction_list.dart';
 import 'models/transactionModel.dart';
 
 void main() {
+  // Controls Portrait or Landscape mode
   // WidgetsFlutterBinding.ensureInitialized();
   // SystemChrome.setPreferredOrientations(
   //   [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
@@ -92,6 +93,62 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     }).toList();
   }
 
+  List<Widget> _buildLandScape(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return [
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "Show Chart",
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          Switch.adaptive(
+            activeColor: Theme.of(context).accentColor,
+            value: _showChart,
+            onChanged: (val) {
+              setState(() {
+                _showChart = val;
+              });
+            },
+          ),
+        ],
+      ),
+      _showChart
+          ? Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: Chart(_lastWeekTransactions))
+          : Container(
+              height: (mediaQuery.size.height -
+                      appBar.preferredSize.height -
+                      mediaQuery.padding.top) *
+                  0.7,
+              child: TransactionCard(_transactions, _deleteTransaction)),
+    ];
+  }
+
+  List<Widget> _buildPortrait(
+      MediaQueryData mediaQuery, PreferredSizeWidget appBar) {
+    return [
+      Container(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.3,
+          child: Chart(_lastWeekTransactions)),
+      Container(
+          height: (mediaQuery.size.height -
+                  appBar.preferredSize.height -
+                  mediaQuery.padding.top) *
+              0.7,
+          child: TransactionCard(_transactions, _deleteTransaction))
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -127,55 +184,8 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            if (isLandScape)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Show Chart",
-                    textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline6,
-                  ),
-                  Switch.adaptive(
-                    activeColor: Theme.of(context).accentColor,
-                    value: _showChart,
-                    onChanged: (val) {
-                      setState(() {
-                        _showChart = val;
-                      });
-                    },
-                  ),
-                ],
-              ),
-            if (isLandScape)
-              _showChart
-                  ? Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child: Chart(_lastWeekTransactions))
-                  : Container(
-                      height: (mediaQuery.size.height -
-                              appBar.preferredSize.height -
-                              mediaQuery.padding.top) *
-                          0.7,
-                      child:
-                          TransactionCard(_transactions, _deleteTransaction)),
-            if (!isLandScape)
-              Container(
-                  height: (mediaQuery.size.height -
-                          appBar.preferredSize.height -
-                          mediaQuery.padding.top) *
-                      0.23,
-                  child: Chart(_lastWeekTransactions)),
-            if (!isLandScape)
-              Container(
-                  height: (mediaQuery.size.height -
-                          appBar.preferredSize.height -
-                          mediaQuery.padding.top) *
-                      0.77,
-                  child: TransactionCard(_transactions, _deleteTransaction)),
+            if (isLandScape) ..._buildLandScape(mediaQuery, appBar),
+            if (!isLandScape) ..._buildPortrait(mediaQuery, appBar),
           ],
         ),
       ),

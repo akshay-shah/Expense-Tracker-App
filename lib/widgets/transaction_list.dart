@@ -15,9 +15,12 @@ class TransactionCard extends StatelessWidget {
         ? LayoutBuilder(builder: (context, constraints) {
             return Column(
               children: <Widget>[
-                Text(
-                  "No transactions found!!",
-                  style: Theme.of(context).textTheme.headline6,
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Text(
+                    "No transactions found!!",
+                    style: Theme.of(context).textTheme.headline6,
+                  ),
                 ),
                 SizedBox(
                   height: 10,
