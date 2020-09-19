@@ -1,6 +1,6 @@
 # expense_tracker
 
-A new Flutter project.
+A sample expense tracker project writter with Flutter for iOS & Android.
 
 ## Getting Started
 
