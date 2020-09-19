@@ -49,8 +49,28 @@ class ExpenseTracker extends StatefulWidget {
   _ExpenseTrackerState createState() => _ExpenseTrackerState();
 }
 
-class _ExpenseTrackerState extends State<ExpenseTracker> {
+class _ExpenseTrackerState extends State<ExpenseTracker>
+    with WidgetsBindingObserver {
   bool _showChart = false;
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    print(state);
+    super.didChangeAppLifecycleState(state);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addObserver(this);
+  }
+
   final List<Transaction> _transactions = [];
 
   void _addNewTransaction(String title, double amount, DateTime dateTime) {
@@ -184,6 +204,24 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     return Platform.isIOS ? _buildCupertinoAppbar() : _buildAndroidAppBar();
   }
 
+  Widget _buildScaffold(SafeArea pageBody, PreferredSizeWidget appBar) {
+    return Platform.isIOS
+        ? CupertinoPageScaffold(
+            child: pageBody,
+            navigationBar: appBar,
+          )
+        : Scaffold(
+            appBar: appBar,
+            drawer: Drawer(),
+            body: pageBody,
+            floatingActionButton: FloatingActionButton(
+              onPressed: () => _startNewTransactionPage(context),
+              child: Icon(Icons.add),
+            ),
+            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+          );
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
@@ -200,20 +238,6 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
         ),
       ),
     );
-    return Platform.isIOS
-        ? CupertinoPageScaffold(
-            child: pageBody,
-            navigationBar: appBar,
-          )
-        : Scaffold(
-            appBar: appBar,
-            drawer: Drawer(),
-            body: pageBody,
-            floatingActionButton: FloatingActionButton(
-              onPressed: () => _startNewTransactionPage(context),
-              child: Icon(Icons.add),
-            ),
-            floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-          );
+    return _buildScaffold(pageBody, appBar);
   }
 }
