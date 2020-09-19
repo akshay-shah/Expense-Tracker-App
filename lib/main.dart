@@ -149,36 +149,46 @@ class _ExpenseTrackerState extends State<ExpenseTracker> {
     ];
   }
 
+  Widget _buildCupertinoAppbar() {
+    return CupertinoNavigationBar(
+      middle: const Text(
+        "Expense Tracker",
+      ),
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          GestureDetector(
+            child: Icon(CupertinoIcons.add),
+            onTap: () => _startNewTransactionPage(context),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildAndroidAppBar() {
+    return AppBar(
+      title: const Text(
+        "Expense Tracker",
+      ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.add),
+          onPressed: () => _startNewTransactionPage(context),
+        )
+      ],
+    );
+  }
+
+  Widget _buildAppBar() {
+    return Platform.isIOS ? _buildCupertinoAppbar() : _buildAndroidAppBar();
+  }
+
   @override
   Widget build(BuildContext context) {
     final mediaQuery = MediaQuery.of(context);
     final isLandScape = mediaQuery.orientation == Orientation.landscape;
-    final PreferredSizeWidget appBar = Platform.isIOS
-        ? CupertinoNavigationBar(
-            middle: const Text(
-              "Expense Tracker",
-            ),
-            trailing: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                GestureDetector(
-                  child: Icon(CupertinoIcons.add),
-                  onTap: () => _startNewTransactionPage(context),
-                ),
-              ],
-            ),
-          )
-        : AppBar(
-            title: const Text(
-              "Expense Tracker",
-            ),
-            actions: <Widget>[
-              IconButton(
-                icon: Icon(Icons.add),
-                onPressed: () => _startNewTransactionPage(context),
-              )
-            ],
-          );
+    final PreferredSizeWidget appBar = _buildAppBar();
     final pageBody = SafeArea(
       child: SingleChildScrollView(
         child: Column(
