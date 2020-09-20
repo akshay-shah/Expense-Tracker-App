@@ -54,7 +54,26 @@ class _NewTransactionState extends State<NewTransaction> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    print("initstate called");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    print("dispose called");
+  }
+
+  @override
+  void didUpdateWidget(NewTransaction oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    print("didUpdateWidget called");
+  }
+
+  @override
   Widget build(BuildContext context) {
+    print("build called");
     return SingleChildScrollView(
       child: Container(
         child: Card(

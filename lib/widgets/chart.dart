@@ -32,7 +32,6 @@ class Chart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(getGroupedTransactions);
     return Card(
       elevation: 4,
       child: Container(
@@ -41,6 +40,8 @@ class Chart extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: <Widget>[
+            // ... is called spread operator which
+            // returns single items froms list of widgets
             ...getGroupedTransactions.map((data) {
               return Flexible(
                 fit: FlexFit.tight,
