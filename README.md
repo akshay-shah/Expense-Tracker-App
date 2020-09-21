@@ -4,7 +4,7 @@ A sample expense tracker project written with Flutter for iOS & Android.
 
 ## Screenshots
 ![Android](screenshots/1.jpg)
-![iOS](.screenshots/2.jpg)
+![iOS](screenshots/2.jpg)
 ![Android](screenshots/3.jpg)
 ![iOS](screenshots/4.jpg)
 ![Android](screenshots/5.jpg)
