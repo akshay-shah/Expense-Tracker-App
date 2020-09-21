@@ -3,16 +3,16 @@
 A sample expense tracker project written with Flutter for iOS & Android.
 
 ## Screenshots
-![Android](screenshots/1.png)
-![iOS](.screenshots/2.png)
-![Android](screenshots/3.png)
-![iOS](screenshots/4.png)
-![Android](screenshots/5.png)
-![iOS](screenshots/6.png)
-![Android](screenshots/7.png)
-![iOS](screenshots/8.png)
-![Android](screenshots/9.png)
-![iOS](screenshots/10.png)
+![Android](screenshots/1.jpg)
+![iOS](.screenshots/2.jpg)
+![Android](screenshots/3.jpg)
+![iOS](screenshots/4.jpg)
+![Android](screenshots/5.jpg)
+![iOS](screenshots/6.jpg)
+![Android](screenshots/7.jpg)
+![iOS](screenshots/8.jpg)
+![Android](screenshots/9.jpg)
+![iOS](screenshots/10.jpg)
 
 This project is a starting point for a Flutter application.
 
